@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWebHomework2</title>
+    <style>
+        body{
+            font: 16px "simhei", Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+        }
+        body>div{
+            width: 1000px;
+            background-color: white;
+            margin: 0 auto;/*块级元素居中*/
+            overflow: hidden;/*解决上部元素粘连问题*/
+        }
+        #top{
+            background-color: white;
+            color: #606266;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        body>div>div{
+            margin: 20px;
+        }
+        #main>div{
+            background-color: #E8E8E8;
+            padding: 16px;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin:12px 40px;
+        }
+        .main_z_z{
+            background-color: #f5f5f5;
+        }
+        h3{
+            color: #4f4f4f;
+            margin: 8px 0 16px 0;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 26px;
+        }
+        h4{
+            padding: 5px;
+        }
+        li{
+            margin-bottom: 5px;
+        }
+        img{
+            width: 25px;
+            float: right;
+        }
+        #xuehao{
+            float:right;
+            margin-right: 10px;
+        }
+        .main_p{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="top">
+        <span>实验报告</span>
+        <img src="https://img0.baidu.com/it/u=2407773217,1248198690&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="">
+        <span id="xuehao">20213634</span>
+        <hr>
+    </div>
+    <div id="main">
+        <h3>Gitbash基础操作</h3>
+        <h3>一、简介</h3>
+        <div class="main_z">
+            <ul>
+                <li>关于Gitbash的基础知识和基本命令行的简单介绍</li>
+                <li>使用GitBash实现文件/文件夹的创建，删除，复制，转移，查看，解压，重命名等操作</li>
+            </ul>
+        </div>
+        <h3>二、命令</h3>
+        <div class="main_z">
+            <ol>
+                <li>cd：切换目录</li>
+                <li>cd ..：返回上一目录</li>
+                <li>ls：查看当前目录</li>
+                <li>ls -a：查看所有文件（包括隐藏文件夹）</li>
+                <li>ls -R：查看文件夹，以及文件夹中的内容</li>
+                <li>mkdir：创建文件夹</li>
+                <li>rm：删除文件</li>
+                <li>rm -r：删除文件夹</li>
+                <li>cp：复制文件</li>
+                <li>cp -r：复制文件夹</li>
+                <li>cat：查看文件内容</li>
+                <li>mv：用于移动或重命名文件和目录</li>
+                <li>vim：创建html文件，并进行并写代码</li>
+                <li>tar -xf ：解压缩文件</li>
+            </ol>
+            <p>
+                补充：<br>
+                1、利用*.文件拓展名可以实现一次性对同一类型文件的处理。
+            </p>
+        </div>
+        <h3>三、总结</h3>
+        <div class="main_z">
+            <p>gitbash是一个在windows系统上运行Git命令的工具，通过使用命令行实现对计算机的操作，更加接近于计算机的底层。</p>
+        </div>
+        <h3>四、补充:如何从本地上传文件到GitHub上？</h3>
+        <div class="main_z">
+            <ol>
+                <li>step1：初始化本地项目</li>
+                <div class="main_z_z">
+                    <p class="main_p">git init</p>
+                </div>
+                <li>step2：将文件夹中的文件传至git仓库中</li>
+                <div class="main_z_z">
+                    <p class="main_p">git add</p>
+                </div>
+                <li>step3：将项目提交到git仓库（commit项目）</li>
+                <div class="main_z_z">
+                    <p class="main_p">git commit -m "注释"</p>
+                </div>
+                <li>step4：新建分支</li>
+                <div class="main_z_z">
+                    <p class="main_p">git branch -M main</p>
+                </div>
+                <li>step5：将本地仓库（.git）和gitHub上的仓库进行关联</li>
+                <div class="main_z_z">
+                    <p class="main_p">git remote add origin gitHub仓库地址</p>
+                </div>
+                <li>step6：将本地仓库的项目push到gitHub的远程仓库上</li>
+                <div class="main_z_z">
+                    <p class="main_p">git push -u origin main</p>
+                </div>
+
+            </ol>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* styles.css */
+
+/* 清除默认样式 */
+body {
+    margin: 0 auto;
+    padding: 0;
+    font-family: "gilory", "MiSans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    color: #404040;
+}
+
+#header_name{
+    margin: 0 0 0 20px;
+    padding: 10px 0;
+    font-weight: bold;
+}
+/* 头部样式 */
+header{
+    background-color: rgba(50, 50, 50, 0.1); /* 头部背景颜色 */
+    border-top: 0.5px solid rgba(50, 50, 50, 0.15); /* 上边框样式 */
+    border-bottom: 0.5px solid rgba(50, 50, 50, 0.15); /* 下边框样式 */
+    padding: 10px 0;
+}
+.main_row{
+    text-align: center;
+}
+
+#main_row2{
+    font-size:30px ;
+    margin: 8px 0;
+    font-weight: lighter;
+
+}
+#main_row1{
+    width: 5.25rem;
+    height: 0.25rem;
+    margin: 0.8rem auto;
+    background-color: #404040;
+    border-radius: 20px;
+
+}
+h1{
+    font-size: 45px;
+    font-weight: bold;
+    margin: 8px;
+    text-align: center;
+    font-family: "Open Sans";
+}
+#footers{
+    background-color: rgba(50, 50, 50, 0.1); /* 头部背景颜色 */
+    border-top: 0.5px solid rgba(50, 50, 50, 0.2); /* 上边框样式 */
+    border-bottom: 0.5px solid rgba(50, 50, 50, 0.2); /* 下边框样式 */
+    padding: 10px 0;
+    text-align: center;
+}
+
+body>main>div{
+    width: 1000px;
+    background-color: white;
+    margin: 0 auto;/*块级元素居中*/
+    overflow: hidden;/*解决上部元素粘连问题*/
+}
+
+body>main>div>div{
+    margin: 20px;
+}
+.main_z{
+    background-color: white;
+    padding: 35px 0;
+    font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+    position: relative; /* 使用相对定位 */
+}
+
+h2{
+    margin: 8px 0 16px 0;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 26px;
+    margin: 0 0 8px;
+}
+
+h3{
+    font-family: "Open Sans";
+    font-weight: lighter;
+    font-size: 24px;
+    color: #404040;
+    margin: 0 0 10px;
+}
+
+.main_z>p{
+    font-family: "Times New Roman";
+    font-size: 18px;
+    color: #808080;
+    margin: 0 0 10px;
+}
+#xuehao{
+    float:right;
+    margin-right: 10px;
+    font-weight: bolder;
+    font-family: "Open Sans";
+}
+a{
+    color: #404040;
+    text-decoration: none;
+}
+.main_tags{
+    margin: 10px 0 0;
+    color: #808080;
+    font-weight: lighter;
+    font-family: "gilory", "MiSans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.main_z>img{
+    position: absolute; /* 使用绝对定位 */
+    bottom: 0; /* 距离底部的距离为0 */
+    right: 0; /* 距离右侧的距离为0 */
+    max-width: 100%; /* 图片的最大宽度为容器的宽度 */
+    max-height: 100%; /* 图片的最大高度为容器的高度 */
+}
+
+a:hover{
+    color: #0085a1;
+}

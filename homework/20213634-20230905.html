@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWebHomework1</title>
+    <style>
+        body{
+            font: 16px "simhei", Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+        }
+        body>div{
+            width: 1000px;
+            background-color: white;
+            margin: 0 auto;/*块级元素居中*/
+            overflow: hidden;/*解决上部元素粘连问题*/
+        }
+        #top{
+            background-color: white;
+            color: #606266;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        body>div>div{
+            margin: 20px;
+        }
+        #main>div{
+            background-color: #E8E8E8;
+            padding: 16px;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin:12px 40px;
+        }
+        .main_z_z{
+            background-color: #f5f5f5;
+        }
+        h3{
+            color: #4f4f4f;
+            margin: 8px 0 16px 0;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 26px;
+        }
+        h4{
+            padding: 5px;
+        }
+        li{
+            margin-bottom: 5px;
+        }
+        img{
+            width: 25px;
+            float: right;
+        }
+        #xuehao{
+            float:right;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="top">
+        <span>实验报告</span>
+        <img src="https://img0.baidu.com/it/u=2407773217,1248198690&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="">
+        <span id="xuehao">20213634</span>
+        <hr>
+    </div>
+    <div id="main">
+        <h3>一、关于Gitbash,EditPlus的下载安装与页面调整。</h3>
+        <div class="main_z">
+            <ul>
+                <li>Gitbash：字号字号调整为20左右。</li>
+                <li>EditPlus：简单代码的自动填充设置。关键字+space实现自动填充</li>
+            </ul>
+        </div>
+        <h3>二、关于Gitbash的基础知识以及基本命令行介绍</h3>
+        <div class="main_z">
+            <ol>
+                <li> ~：表示在桌面</li>
+                <li>/：表示在根目录下</li>
+                <li>cd：切换目录</li>
+                <li>cd ..：返回上一目录</li>
+                <li>ls：查看当前目录</li>
+                <li>ls -a：查看所有文件（包括隐藏文件夹）</li>
+                <li>mkdir：创建文件夹</li>
+                <li>rm -r：删除文件夹</li>
+                <li>rm：删除文件</li>
+                <li>cp：复制文件</li>
+                <li>cp -r：复制文件夹</li>
+                <li>cat：查看文件内容</li>
+                <li>上下箭头：返回上一次下一次的操作</li>
+                <li>Tab键：自动补全</li>
+            </ol>
+        </div>
+        <h3>三、一些疑问</h3>
+        <div class="main_z">
+            <p>在拷贝文件的过程中，为什么拷贝的文件/文件夹后面要加上“.”？表示源？</p>
+        </div>
+        <h3>四、操作步骤</h3>
+        <div class="main_z">
+            <ol>
+                <li>进入根目录，在跟目录中创建新的文件夹。如果创建不了，可能是权限不够，在目录下挂载
+                    新的磁盘，创建文件。</li>
+                <li>进行文件以及文件夹的拷贝和删除工作。</li>
+                <li>将操作的历史记录导出到新的文本文件中。（注意：标明最终导出文件的位置）</li>
+            </ol>
+        </div>
+        <h3>五、历史记录</h3>
+        <div class="main_z">
+            <p> 1  ls
+                2  mkdir nieYX
+                3  ls
+                4  cd nieYX/
+                5  ls
+                6  ls /
+                7  ls /d
+                8  ls /d/.temp
+                9  cp /d/.temp/
+                10  cp --help
+                11  cp /d/.temp/soul.jpeg
+                12  ls
+                13  ls /
+                14  ls /d/.temp/
+                15  cp /d/.temp/
+                16  cp /d/.temp/soul.jpeg/
+                17  cp /d/25897/
+                18  cp -r/d/25897/
+                19  cp -r /d/25897/
+                20  ls /d/.temp/
+                21  ls /
+                22  ls /d/.temp/
+                23  cp /e/.temp/soul.jpeg/
+                24  ls
+                25  cd
+                26  cd /
+                27  ls
+                28  cd
+                29  ls
+                30  ls nieYX/
+                31  history
+                32  history
+                33  history | more
+                34  history || more
+                35  history | more
+                36  cd /
+                37  ls
+                38  mkdir nieYX
+                39  ls
+                40  rmdir nieYX/
+                41  ls
+                42  mkdir nieYX
+                43  ls
+                44  cp /d/.temp/
+                45  ls /d/.temp/
+                46  cp /d/.temp/
+                47  cp /d/.temp/.
+                48  cp /d/.temp/soul.jpeg/
+                49  ls
+                50  cd nieYX/
+                51  ls
+                52  ls /d/.temp/
+                53  cp /d/.temp/ .
+                54  cp /d/.temp/soul.jpeg .
+                55  ls
+                56  rm soul.jpeg
+                57  ls
+                58  cp /d/.tmep/soul.jpeg .
+                59  ls
+                60  cp /d/.temp/soul.jpeg .
+                61  ls
+                62  rm soul.jpeg
+                63  cp -r /d/.temp .
+                64  ls
+                65  cp /d/.temp .
+                66  cp -R /d/.temp .
+                67  ls
+                68  cp /d/.temp/soul.jpeg .
+                69  ls
+                70  history
+                71  history>/d/.temp
+                72  history>/d/.temp/history.txt
+                73  ls
+                74  ls
+                75  ls
+                76  cp /d/.temp . -r
+                77  ls
+                78  ls -h
+                79  ls -l
+                80  ls --help
+                81  ls -a
+                82  ls .temp/
+                83  ls
+                84  ls -r
+                85  ls -ra
+                86  ls -r -a
+                87  ls -r -a -R
+                88  rm soul.jpeg
+                89  rmdir .temp
+                90  rm .temp
+                91  ls
+                92  ls -a
+                93  ls
+                94  cp /d/javaWeb/soul.jpeg .
+                95  ls
+                96  rm soul.jpeg
+                97  cp /d/javaWeb .
+                98  cp -r /d/javaWeb .
+                99  ls
+                100  ls -r
+                101  ls -R
+                102  rm javaWeb
+                103  rmdir javaWeb
+                104  rm -r javaWeb
+                105  ls
+                106  cp /d/javaWeb .
+                107  cp -r /d/javaWeb .
+                108  ls
+                109  cp /d/.temp/soul.jpeg .
+                110  ls
+                111  ls -R
+                112  ls -r
+                113  ls -R
+                114  ls -r
+                115  cd /
+                116  ls
+                117  cd /nieYX/
+                118  cd /nieYX
+                119  ls
+                120  cd /d
+                121  ls /
+                122  history
+                123  cd /
+                124  cd /nieYX
+                125  cp /d/javaWeb .
+                126  cp -r /d/javaWeb .
+                127  ls
+                128  rm -r javaWeb
+                129  ls
+                130  cp -r /d/javaWeb .
+                131  ls
+                132  rm -r javaWeb
+                133  ls
+                134  history>history.txt
+                135  cp -r /d/history.txt .
+                136  cp /d/history.txt .
+                137  cp /d/javaWeb/history.txt .
+                138  history>history.txt
+                139  history
+                140  history>/d/javaWeb/history.txt
+                141  cd/
+                142  cd /
+                143  cd/
+                144  cd /
+                145  cd /
+                146  ls
+                147  cd nieYX
+                148  ls
+                149  rm history.txt
+                150  rm soul.jpeg
+                151  ls
+                152  cd ..
+                153  rm nieYX
+                154  rm -r nieYX
+                155  ls
+                156  mkdir nieYX
+                157  ls
+                158  cd nieYX
+                159  cp /d/javaWeb/life1.jpj
+                160  cp /d/javaWeb/life1.jpg
+                161  cp /d/javaWeb/face/life1.jpg
+                162  cp /d/javaWeb/face/life1.jpg .
+                163  ls
+                164  rm life1.jpg
+                165  ls
+                166  cp -r /d/javaWeb/face .
+                167  ls
+                168  rm -r face
+                169  ls
+                170  history
+                171  ls
+                172  mk 20213634-20230906.txt
+                173  history>/d/javaWeb/face/20213634-20230905.txt
+                174  history>/d/javaWeb/face/20213634-20230905.txt
+                175  history>/d/.temp/history.txt
+                176  history>/d/javaWeb/history.txt
+                177  history>/d/javaWeb/20213634-20230905.txt
+                178  ls
+                179  cp /d/javaWeb/face/life1.jpg
+                180  cp /d/javaWeb/face/life.jpg .
+                181  cp /d/javaWeb/face/life1.jpg .
+                182  ls
+                183  cp /d/javaWeb/html文件/myPhoto.html .
+                184  ls
+                185  cat
+                186  cd /
+                187  cd nieyx
+                188  ls
+                189  cp /d/.temp/soul.jpeg
+                190  cp /d/.temp/soul.jpeg .
+                191  ls
+                192  cp -r /d/.temp .
+                193  ls
+                194  ls -r
+                195  ls -R
+                196  ls -a
+                197  -a
+                198  ls -a -r
+                199  rm -r .temp
+                200  ls -a
+                201  ls
+                202  rm soul.jpeg
+                203  ls
+                204  cd /
+                205  cd /nieyx
+                206  cd /nieYX/
+                207  cd /
+                208  ls
+                209  cd nieyx
+                210  ls
+                211  cp /d/javaWeb/20213634-20230905.txt
+                212  cp /d/javaWeb/20213634-20230905.txt .
+                213  ls
+                214  rm life1.jpg
+                215  cp /d/javaweb/life1.jpg
+                216  cp /d/javaweb/life1.jpg .
+                217  ls
+                218  cp /d/javaweb/face/life1.jpg .
+                219  ls
+                220  cp -r /d/javaWeb/face .
+                221  ls
+                222  rm -r /d/javaWeb/face
+                223  ls
+                224  rm -R /d/javaWeb/face
+                225  ls
+                226  history
+                227  cp /
+                228  cd /
+                229  cd nieYX/
+                230  la
+                231  la
+                232  ls
+                233  rm -r face
+                234  ls
+                235  cd /d/javaweb/face/
+                236  cp /nieYX/life.jpg .
+                237  cp /nieyx/life1.jpg .
+                238  ls
+                239  cd ..
+                240  cd /
+                241  histoy
+                242  history
+                243  history>/d/javaWeb/20213634-20230905.txt
+                244  history>/d/javaWeb/20213634-20230905.txt </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
