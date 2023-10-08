@@ -3,11 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>JavaWebHomework4</title>
+    <style>
+        body{
+            font: 16px "simhei", Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+        }
+        body>div{
+            width: 1000px;
+            background-color: white;
+            margin: 0 auto;/*块级元素居中*/
+            overflow: hidden;/*解决上部元素粘连问题*/
+        }
+        #top{
+            background-color: white;
+            color: #606266;
+            font-size: 25px;
+            font-weight: 600;
+        }
+        body>div>div{
+            margin: 20px;
+        }
+        #main>div{
+            background-color: #E8E8E8;
+            padding: 16px;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin:12px 40px;
+        }
+        .main_z_z{
+            background-color: #f5f5f5;
+        }
+        h3{
+            color: #4f4f4f;
+            margin: 8px 0 16px 0;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 26px;
+        }
+        h4{
+            padding: 5px;
+        }
+        li{
+            margin-bottom: 5px;
+        }
+        img{
+            width: 25px;
+            float: right;
+        }
+        #xuehao{
+            float:right;
+            margin-right: 10px;
+        }
+        .main_p{
+            padding: 10px;
+        }
+        .main_z_z{
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
-<h1>作业还没写，TAT</h1>
-<h1>正在赶工中......</h1>
-<img src="../img/cat.jpg" alt="">
+<div>
+    <div id="top">
+        <span>git命令行</span>
+        <img src="https://img0.baidu.com/it/u=2407773217,1248198690&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" alt="">
+        <span id="xuehao">20213634</span>
+        <hr>
+    </div>
+    <div id="main">
+        <h3>ping命令</h3>
+        <div class="main_z">
+            <ul>
+                <li>Ping命令是用于测试计算机网络连接的常用命令。它通常用于检查主机之间的通信是否正常，以及测量数据包从一个主机发送到另一个主机的往返时间（Round-Trip Time，RTT）。</li>
+                <div class="main_z_z">
+                    <p class="main_p">ping [选项] 目标主机或IP地址</p>
+                </div>
+            </ul>
+        </div>
+        <h3>grep命令</h3>
+        <div class="main_z">
+            <ul>
+                <li>grep 是一个非常强大的文本搜索工具，它可以帮助在文本文件中找到特定的模式，用于文本处理、日志分析、故障排除等各种任务。</li>
+                <div class="main_z_z">
+                    <p class="main_p">grep '^tor' cet6.txt : 查找cet6.txt中以tor开头的所有单词;</p>
+                </div>
+                <div class="main_z_z">
+                    <p class="main_p">grep 'tor$' cet6.txt : 查找cet6.txt中以tor结尾的所有单词;</p>
+                </div>
+            </ul>
+        </div>
+        <h3>cut命令</h3>
+        <div class="main_z">
+            <ul>
+                <li>cut命令是在Unix和类Unix操作系统中用于处理文本数据的命令行工具，它通常用于从文本行中剪切或提取指定的字段（列）。</li>
+                <div class="main_z_z">
+                    <p class="main_p">cut [选项] 文件</p>
+                </div>
+                <div class="main_z_z">
+                    <p class="main_p">cut --delimiter=/ -f1 cet6.txt : 将cet6.txt中以/为分割线的所有第一列单词列出;</p>
+                </div>
+                <div class="main_z_z">
+                    <p class="main_p">cut --delimiter=/ -f cet6.txt | grep 'ter$': 将cet6.txt中以ter结尾的单词列出;</p>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
 
 </body>
 </html>
