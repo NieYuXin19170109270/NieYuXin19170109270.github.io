@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWebHomework5</title>
+</head>
+<body>
+<video id = "myVideo" controls></video>
+<div>
+    <button id = "play">Play</button>
+    <button id = "pause">Pause</button>
+    <button id = "next">Next</button>
+</div>
+</body>
+<script>
+    //视频数组对象
+    var myVideos = ["funDogs.mp4","naughtyDog.mp4"];
+    //视屏数组对象的控制变量
+    var i = 0;
+    //获取视频元素
+    var video = document.getElementById("myVideo");
+    video.src ="../video0/"+myVideos[0];
+
+    //播放按钮
+    document.getElementById("play").onclick = function () {
+        video.play();
+    };
+    //暂停按钮
+    document.getElementById("pause").onclick = function () {
+        video.pause();
+    };
+    //跳转到下一条视频
+    document.getElementById("next").onclick = function () {
+        i++;
+        if(i==myVideos.length){
+            i=0;
+        }
+        video.src ="../video0/"+myVideos[i];
+    };
+</script>
+</html>
