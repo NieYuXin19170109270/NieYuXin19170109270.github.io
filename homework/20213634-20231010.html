@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
     var i = 0;
     //获取视频元素
     var video = document.getElementById("myVideo");
-    video.src ="../video0/"+myVideos[0];
+    video.src ="../video/"+myVideos[0];
 
     //播放按钮
     document.getElementById("play").onclick = function () {
@@ -35,7 +36,7 @@
         if(i==myVideos.length){
             i=0;
         }
-        video.src ="../video0/"+myVideos[i];
+        video.src ="../video/"+myVideos[i];
     };
 </script>
 </html>
