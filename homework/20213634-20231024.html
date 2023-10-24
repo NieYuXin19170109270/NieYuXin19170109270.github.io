@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWebHomework6</title>
+    <style>
+        input{
+            width: 3em;
+        }
+        #logo {
+            background-color: white;
+            color: #222222;
+            position: absolute;
+            right: 0.4em;
+            top: 0.4em;
+            font-size: 5em;
+        }
+    </style>
+</head>
+<body>
+<video id = "myVideo" controls></video>
+<div id = "logo">
+    No.1号/2
+</div>
+<div>
+    <button id = "play">Play</button>
+    <button id = "pause">Pause</button>
+    <button id = "next">Next</button>
+    <br>
+
+    <!--当前播放时间-->
+    <label>Current Time：</label>
+    <input type="text" value="0" id="currentTime">
+    <!--显示视频播放的时间-->
+    <label>Current Second：</label>
+    <input type="text" id="jumpToTimeInput">
+    <input type="button" id="jumpToTimeButton" value="跳转"><br>
+
+    <!--视频跳转-->
+    <label>Current Order：</label>
+    <input type="text" id="videoIdInput">
+    <input type="button" id="jumpToVideo" value="跳转"><br>
+
+
+</div>
+</body>
+<script>
+    //视频数组对象
+    var myVideos = ["funDogs.mp4","naughtyDog.mp4"];
+    //视频数组对象索引
+    var i = 0;
+    //获取视频元素
+    var video = document.getElementById("myVideo");
+    video.src ="../video/"+myVideos[0];
+    //视频暂停
+    var play =  document.getElementById("play");
+    //视频播放
+    var pause = document.getElementById("pause");
+    //视频轮播
+    var next = document.getElementById("next");
+    //当前视频秒数容器
+    var currentTimeDom = document.getElementById("currentTime");
+    //获取视频当前播放事件
+    var jumpToTimeInput = document.getElementById("jumpToTimeInput");
+    var jumpToTimeButton = document.getElementById("jumpToTimeButton");
+    //获取视频当前序号
+    var videoIdInput = document.getElementById("videoIdInput");
+    var jumpToVideoButton = document.getElementById("jumpToVideo");
+    //视频UI全屏
+    var browserWidth = document.body.clientWidth;
+    video.style.width = browserWidth+'px';
+    //水印
+    var logoDom = document.getElementById("logo");
+
+
+    //视频播放
+    play.onclick = function () {
+        video.play();
+    };
+
+    //视频暂停
+    pause.onclick = function () {
+        video.pause();
+    };
+
+    //实现视频轮播
+    next.onclick = function () {
+        i++;
+        if(i==myVideos.length){
+            i=0;
+        }
+        video.src ="../video/"+myVideos[i];
+        logoDom.textContent = 'NO.' + (i+1) + '共' + myVideos.length;
+    };
+
+    //当前视频的秒数跳转
+    jumpToTimeButton.onclick = function () {
+        var jumpToTime = parseFloat(jumpToTimeInput.value);
+        //数据校验：
+        if(!isNaN(jumpToTime)){
+            if ( jumpToTime >= 0 && jumpToTime <= video.duration) {
+                video.currentTime = jumpToTime;
+            } else if(jumpToTime > video.duration){
+                video.currentTime=video.duration;
+            } else{
+                video.currentTime=0;
+            }
+        }
+    };
+
+    //实现视频跳转
+    jumpToVideoButton.onclick = function () {
+        var inputVideoId = parseInt(videoIdInput.value);
+        //数据校验
+        if (!isNaN(inputVideoId)){
+            if (inputVideoId >= 1 && inputVideoId <= myVideos.length) {
+                i = inputVideoId-1;
+                video.src = "../video/" + myVideos[i];
+            } else if(inputVideoId >myVideos.length){
+                video.src = "../video/" + myVideos[i];
+            } else{
+                video.src = "../video/" + myVideos[0];
+                video.src = "../video/" + myVideos[0];
+            }
+        }
+        logoDom.textContent = 'NO.' + (i+1) + '共' + myVideos.length;
+    };
+
+    //右上角遮水印,当前视频秒数显示
+    window.setInterval(function(){
+        currentTimeDom.value=parseInt(video.currentTime)+'s';
+    },1000);
+</script>
+</html>
