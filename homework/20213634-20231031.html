@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWebHomework8</title>
+</head>
+<style>
+    body{
+        font-family: Montserrat, sans-serif;
+        background-color: darkseagreen;
+        color: white;
+        font-size: 20px;
+        margin:0px;
+    }
+
+    #hLeft{
+        float: left; /* 向左浮动 */
+        margin-left:4%;
+    }
+    #hRight{
+        float: right; /* 向右浮动 */
+        margin-right: 4%;
+    }
+    #hText{
+        text-align: center;
+    }
+
+    #videoContent{
+        width: 50%;
+        height: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        background-color: white;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    #content{
+        width: 60%;
+        margin:0 auto;
+    }
+    #videoNum{
+        color:white;
+        font-weight: bold;
+        position: absolute;
+        top: 200px; /* 向下偏移20像素 */
+        right: 450px; /* 向右偏移50像素 */
+    }
+    #showTime{
+        color:white;
+        position: relative;
+        position: absolute;
+        top: 200px; /* 向下偏移20像素 */
+        left: 450px; /* 向右偏移50像素 */
+    }
+
+    #jumpToTimeInput,#videoIdInput{
+        width: 30px;
+        border: 2px solid darkseagreen; /* 设置边框颜色 */
+        border-radius: 100px;
+    }
+
+    #jumpToTimeButton,#jumpToVideo{
+        border: 2px solid darkseagreen; /* 设置边框颜色 */
+        border-radius: 100px;
+    }
+    label{
+        color: white;
+        font-weight: bolder;
+    }
+
+    #buttons{
+        width:100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    button{
+        width: 120px;
+        height: 60px;
+        font-size: 14px;
+        padding: 1em 1.5em;
+        flex: 0 0 50%;
+        border-radius: 100px;
+        border: 2px solid darkseagreen; /* 设置边框颜色 */
+    }
+
+    #control{
+        text-align: center;
+        margin:20px 20px;
+    }
+
+    #duration {
+        text-align: center;
+    }
+
+    #footer{
+        text-align: center;
+        font-weight: bold;
+    }
+
+    input[type="button" i] {
+        text-align: center;
+        margin-left: 10px;
+        border-radius: 100px;
+        border:10px green;
+        font-size: 20px;
+    }
+    input[type="button" i]:hover{
+        color: darkseagreen;
+    }
+</style>
+<body>
+    <div id="head">
+        <div id="hLeft">VIDEOS</div>
+        <div id="hRight">JavaHomework8</div>
+        <div id="hText">
+            <h1>Make you player yours</h1>
+            <h2>Welcome to watch my players' Web page.</h2>
+        </div>
+    </div>
+    <div id="body">
+        <div id="content">
+            <div id="videoContent">
+                <div id = "videoNum"></div>
+                <div id = "showTime"></div>
+                 <video id = "myVideo" controls></video>
+            </div>
+            <div id="buttons">
+                <button id = "pause">Pause</button>
+                <button id = "play">Play</button>
+                <button id = "next">Next</button>
+                <button id="fullscreen-button">Fullscreen</button>
+            </div>
+            <div id="control">
+                <!--跳转视频播放的时间-->
+                <label>Current Second：</label>
+                <input type="text" id="jumpToTimeInput">
+                <input type="button" id="jumpToTimeButton" value="Go">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <!--视频跳转-->
+                <label>Current Order：</label>
+                <input type="text" id="videoIdInput">
+                <input type="button" id="jumpToVideo" value="Go"><br>
+            </div>
+            <div  id="duration"></div>
+            <br>
+        </div>
+    </div>
+
+    <div id="footer">
+        &copy; author Alian
+    </div>
+</body>
+<script>
+    //视频数组对象
+    var myVideos = ["http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4","http://vjs.zencdn.net/v/oceans.mp4","https://media.w3.org/2010/05/sintel/trailer.mp4"];
+    //视频数组对象索引
+    var i = 0;
+    //获取视频元素
+    var video = document.getElementById("myVideo");
+    /*video.src ="../video/"+myVideos[0];*/
+    video.src =myVideos[0];
+    //视频暂停
+    var play =  document.getElementById("play");
+    //视频播放
+    var pause = document.getElementById("pause");
+    //视频轮播
+    var next = document.getElementById("next");
+    //当前视频秒数容器
+    var showTimeDom = document.getElementById("showTime");
+    //获取视频当前播放事件
+    var jumpToTimeInput = document.getElementById("jumpToTimeInput");
+    var jumpToTimeButton = document.getElementById("jumpToTimeButton");
+    //获取视频当前序号
+    var videoIdInput = document.getElementById("videoIdInput");
+    var jumpToVideoButton = document.getElementById("jumpToVideo");
+
+    //视频UI全屏
+    var browserWidth = document.body.clientWidth;
+    video.style.width = browserWidth+'px';
+
+    //水印
+    var logoDom = document.getElementById("videoNum");
+
+    //视频播放
+    play.onclick = function () {
+        video.play();
+    };
+
+    //视频暂停
+    pause.onclick = function () {
+        video.pause();
+    };
+
+    //实现视频轮播
+    next.onclick = function () {
+        i++;
+        if(i==myVideos.length){
+            i=0;
+        }
+        /*video.src ="../video/"+myVideos[i];*/
+        video.src =myVideos[i];
+        logoDom.textContent = 'NO.' + (i+1) + '共' + myVideos.length;
+    };
+
+    //当前视频的秒数跳转
+    jumpToTimeButton.onclick = function () {
+        var jumpToTime = parseFloat(jumpToTimeInput.value);
+        //数据校验：
+        if(!isNaN(jumpToTime)){
+            if ( jumpToTime >= 0 && jumpToTime <= video.duration) {
+                video.currentTime = jumpToTime;
+            } else if(jumpToTime > video.duration){
+                video.currentTime=video.duration;
+            } else{
+                video.currentTime=0;
+            }
+        }
+    };
+
+    //实现视频跳转
+    jumpToVideoButton.onclick = function () {
+        var inputVideoId = parseInt(videoIdInput.value);
+        //数据校验
+        if (!isNaN(inputVideoId)){
+            if (inputVideoId >= 1 && inputVideoId <= myVideos.length) {
+                i = inputVideoId-1;
+                /*video.src = "../video/" + myVideos[i];*/
+                video.src =myVideos[i];
+            } else if(inputVideoId >myVideos.length){
+                /*video.src = "../video/" + myVideos[i];*/
+                video.src =myVideos[i];
+            } else{
+                /*video.src = "../video/" + myVideos[0];*/
+                video.src =myVideos[i];
+            }
+        }
+    };
+
+    //左上角当前视频秒数显示；右上角遮水印
+    window.setInterval(function(){
+        /*currentTimeDom.value=parseInt(video.currentTime)+'s';*/
+        logoDom.textContent = 'NO.' + (i+1) + '/' + myVideos.length;
+        showTimeDom.textContent = parseInt(video.currentTime)+'s'+' /'+ parseInt(video.duration)+'s';
+    },1000);
+
+    //动态生成9个按钮用于控制进度
+    var durationDom=[];
+    for(let i =0;i<4;i++){
+        let tempDom = document.createElement('input');
+        tempDom.type = 'button';
+        tempDom.value += 'No.'+(i+1);
+        durationDom[i] = tempDom;
+        document.getElementById('duration').appendChild(durationDom[i]);
+    }
+    for(let i = 0;i<durationDom.length;i++) {
+        /*console.log('You click No.'+(i+1)+durationDom[i]);*/
+        durationDom[i].onclick = function () {
+            video.currentTime = i*video.duration/durationDom.length;
+        }
+    }
+    // 获取按钮元素和文档
+    var fullscreenButton = document.getElementById("fullscreen-button");
+    var doc = document.documentElement;
+
+    // 检查浏览器是否支持全屏API
+    if (video.requestFullscreen) {
+        // 监听按钮的点击事件
+        fullscreenButton.addEventListener("click", function() {
+            if (!document.fullscreenElement) {
+                // 如果不在全屏模式下，将视频进入全屏
+                video.requestFullscreen()
+                    .then(function() {
+                        console.log("进入视频全屏模式");
+                    })
+                    .catch(function(error) {
+                        console.error("进入视频全屏模式失败:", error);
+                    });
+            } else {
+                // 如果已经在全屏模式下，退出全屏
+                document.exitFullscreen()
+                    .then(function() {
+                        console.log("退出视频全屏模式");
+                    })
+                    .catch(function(error) {
+                        console.error("退出视频全屏模式失败:", error);
+                    });
+            }
+        });
+    } else {
+        // 浏览器不支持全屏API，提供相应提示
+        fullscreenButton.style.display = "none";
+        console.log("浏览器不支持视频全屏模式。");
+    }
+
+</script>
+</html>
