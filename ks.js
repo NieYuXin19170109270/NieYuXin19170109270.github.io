@@ -2,8 +2,8 @@ var mediaData = {
     podCover:"../img/",
 /*    podPath: "../media/mp3Files/",
     videoPath: "../media/mp4Files/",*/
-    podPath: "https:/jxzy-dmxy.jxstnu.edu.cn/",
-    videoPath: "https:/jxzy-dmxy.jxstnu.edu.cn/tedVideos/",
+    podPath: "https://jxzy-dmxy.jxstnu.edu.cn/",
+    videoPath: "https://jxzy-dmxy.jxstnu.edu.cn/tedVideos/",
     creator:["聂雨欣","梁港莎","彭丽娟","颜廖文瑾"],
 
     /*音频结构*/
