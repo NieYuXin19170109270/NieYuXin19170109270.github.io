@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Podcasting Self-learning System</title>
+</head>
+<style>
+    body{
+        background-color: whitesmoke;
+        position: relative;
+        height: 100vh;/*整个浏览器窗口可见区域的高度*/
+        font-family: "Elephant";
+    }
+    #entirety{
+        background-color: #FDE078;
+        border-radius: 10px;
+        width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 4vh;
+        padding-bottom: 1vh;
+        box-shadow: 0 0 10px 5px rgba(32, 30, 28, 0.2);
+    }
+
+    #Media{
+        margin-left: 20vh;
+        font-size: 24vh;
+    }
+
+    #main_left_bottom span{
+        font-size: 16vh;
+    }
+
+    #main_left_bottom{
+        overflow: hidden;
+    }
+
+    #Player{
+        float: left;
+    }
+    #main_left_bottom-right{
+        padding: 8vh;
+        float: left;
+    }
+    #main_left_bottom-right img{
+        margin-left: 2vh;
+        width: 9vh;
+    }
+    #main{
+        overflow: hidden;
+    }
+    #main_left,#main_right{
+        float: left;
+    }
+    #main_right{
+        background-color: rgba(0, 0, 0, 0);
+        float: left;
+        width: 60vh;
+        height: 33.75vh;
+        margin-top: 10vh;
+        position: relative;
+    }
+    #main_right video,#main_right audio{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* 根据视频比例调整尺寸 */
+    }
+    #footer{
+        overflow: hidden;
+    }
+    #footer_left{
+        width: 102vh;
+        float: left;
+    }
+    #footer_right{
+        float: left;
+
+    }
+
+    #footer_right{
+        cursor: pointer;
+    }
+
+    #footer_right img{
+        margin-right:8vh;
+    }
+    #footer_left{
+        overflow: hidden;
+    }
+    #footer_left_left{
+        float: left;
+    }
+    #footer_left_right_right{
+        margin-left: 10vh;
+        float: left;
+    }
+
+    #fullScreen{
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 2px solid whitesmoke;
+    }
+
+    #bottom{
+        overflow: hidden;
+    }
+
+    #bottom [type="button" i]{
+        width: 180px;
+        float: left;
+        text-align: center;
+        margin-right: 20px;
+        padding: 10px 20px;
+        font-size: 10px;
+        cursor: pointer;
+        border: 2px solid white;
+        border-radius: 12px;
+        background-color: white;
+        color: #333;
+
+    }
+
+    input[type="button"]{
+        text-align: center;
+        font-size: 10px;
+        cursor: pointer;
+        border: 2px solid white;
+        border-radius: 12px;
+        background-color: white;
+        color: #333;
+        margin-left: 12px;
+    }
+
+    input[type="button"]:hover{
+        border: 2px solid black;
+    }
+
+    input[type="text"]{
+        width: 100px;
+        border: 2px solid #4f4f4f;
+        border-radius: 12px;
+    }
+
+
+
+    #bottom [type="button" i]:hover,#fullScreen:hover {
+        background-color: whitesmoke;
+        border: 2px solid orange;
+        transform: scale(1.1);
+    }
+
+    #bottom [type="button" i]active {
+        background-color: #d9d9d9;
+    }
+
+    .photo{
+        float: right;
+    }
+    .photo img {
+        width: 60px;
+        height:60px;
+        border-radius: 50%;
+    }
+
+
+    hr {
+        background-color:orange;
+        height: 1.5px;
+        border: none;
+        margin: 10px 0;
+    }
+    #cover{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    #group{
+        font-size: 40px;
+    }
+    #creator{
+        font-size:25px;
+    }
+    #play, #stop, #restart {
+        border: 2px transparent;
+        cursor: pointer;
+    }
+    #play:hover,
+    #stop:hover,
+    #restart:hover {
+        transform: scale(1.1);
+    }
+    #front:hover,
+    #switch:hover,
+    #back:hover {
+        transform: scale(1.1); /* 在鼠标悬浮时将按钮放大 1.1 倍 */
+    }
+    #showTime,#showOrder{
+        margin-left: 140px;
+    }
+    #jumpOrderButton,#jumpTimeButton{
+        width: 50px;
+        height: 20px;
+    }
+
+
+</style>
+<body>
+<script src="../ks.js"></script>
+<script>
+    function preloadImages() {
+        var imageArray = [
+            '../images/Adelantar.jpg',
+            '../images/cover.jpg',
+            '../images/leftButton.jpg',
+            '../images/lgsPhoto.jpg',
+            '../images/nyxPhoto.jpg',
+            '../images/playButton.jpg',
+            '../images/pljPhoto.jpg',
+            '../images/restartButton.jpg',
+            '../images/Retroceder.jpg',
+            '../images/rightButton.jpg',
+            '../images/Shfit.jpg',
+            '../images/stopButton.jpg',
+            '../images/t1.jpg',
+            '../images/t2.jpg',
+            '../images/t3.jpg',
+            '../images/t4.jpg',
+            '../images/t5.jpg',
+            '../images/t6.jpg',
+            '../images/teacher.jpg',
+            '../images/xgqPhoto.jpg',
+            '../images/ylwjPhoto.jpg'
+        ];
+
+        for (var i = 0; i < imageArray.length; i++) {
+            var img = new Image();
+            img.src = imageArray[i];
+        }
+    }
+    preloadImages();
+</script>
+<div id="entirety">
+    <div id="myHead">
+        <!--组号-->
+        <span id="group">GROUP 2：</span>
+        <!--成员姓名-->
+        <span id="creator"></span>
+        <!--成员照片-->
+        <div class="photo">
+            <img src="../images/teacher.jpg" >
+            <img src="../images/nyxPhoto.jpg" >
+            <img src="../images/lgsPhoto.jpg" >
+            <img src="../images/pljPhoto.jpg" >
+            <img src="../images/ylwjPhoto.jpg" >
+            <img src="../images/xgqPhoto.jpg" >
+        </div>
+    </div>
+    <br>
+    <div id="main">
+        <div id="main_left">
+            <span id="Media">Media</span>
+            <div id="main_left_bottom">
+                <span id="Player">Player</span>
+                <div id="main_left_bottom-right">
+                    <img src="../images/playButton.jpg" id="play">
+                    <img src="../images/stopButton.jpg" id="stop">
+                    <img src="../images/restartButton.jpg" id="restart">
+                </div>
+            </div>
+        </div>
+        <div id="main_right">
+            <img id="cover" src="../images/cover.jpg">
+            <video id="myVideo"></video>
+            <audio id="myAudio"style="display: none"></audio>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_left">
+            <!--视频控制-->
+            <div id="footer_left_left">
+                <!--当前视频时间跳转与显示-->
+                <label>Current Second：</label>
+                <input type="text" id="jumpTimeInput">
+                <input type="button" id="jumpTimeButton" value="Go">
+                <span id = "showTime">showTime</span>
+                <br>
+                <!--视频序号跳转与显示-->
+                <label>Current &nbsp; Order：</label>
+                <input type="text" id="jumpOrderInput">
+                <input type="button" id="jumpOrderButton" value="Go">
+                <span id = "showOrder">showOrder</span>
+                <br>
+            </div>
+            <!--全屏-->
+            <div id="footer_left_right_right">
+                <input type="button" value="全屏" id="fullScreen">
+            </div>
+        </div>
+        <!--播放，暂停，重播按钮-->
+        <div id="footer_right">
+            <img src="../images/leftButton.jpg" id="front" >
+            <img src="../images/Shfit.jpg" id="switch">
+            <img src="../images/rightButton.jpg" id="back">
+        </div>
+    </div>
+    <br><hr>
+    <div id="bottom">
+        <div id="isDurationButton">
+            <!--音频内容按钮--><!--动态生成6个按钮：进行视频内容的跳转-->
+        </div>
+    </div>
+    <hr>
+    <p style="text-align: center">江西科技师范大学——元宇宙产业学院 21级软件制作java2班</p>
+</div>
+<script>
+    var Model = {};
+    Model.i = 0;
+    Model.UI = {};
+    Model.UI.isVideos = true;
+    //作者成员的DOM对象
+    Model.UI.creatorDom = document.getElementById("creator");
+    Model.UI.creatorDom.textContent = mediaData.creator.join(", ");
+    //视频元素的DOM对象
+    Model.UI.myVideos = {};
+    Model.UI.myVideos.videoDom = document.getElementById("myVideo");
+    //视频路径数组
+    Model.UI.myVideos.videoUrl = mediaData.videoFileNames.map(function(fileName) {
+        return mediaData.videoPath + fileName;
+    });
+    Model.UI.myVideos.videoDom.src = Model.UI.myVideos.videoUrl[Model.i];
+    //音频元素的Dom对象
+    Model.UI.myAudios = {};
+    Model.UI.myAudios.AudioDom = document.getElementById("myAudio");
+    //音频路径数组
+    Model.UI.myAudios.audiosUrl = mediaData.podFilesStruct.map(function(file) {
+        if (typeof file === "object") {
+            return file.fileName;
+        } else {
+            return file;
+        }
+    }).map(function(fileName) {
+        return mediaData.podPath + fileName;
+    });
+    Model.UI.myAudios.AudioDom.src = Model.UI.myAudios.audiosUrl[Model.i];
+    //获取按钮名数组
+    Model.UI.myAudios.audiosPartTitle = mediaData.podFilesStruct[Model.i].title;
+    //获取音频进度的时间
+    Model.UI.myAudios.audiosPartTime = mediaData.podFilesStruct[Model.i].time;
+    //获取对应小结的封面的DOM对象
+    Model.UI.myAudios.coverDom = document.getElementById("cover");
+    //获取对应小结的封面的路径
+    Model.UI.myAudios.coverUrl = mediaData.podFilesStruct[Model.i].cover.map(function (fileName) {
+        // 构建绝对路径
+        return mediaData.podCover + fileName;
+    });
+
+
+    //用于存储为音频进度播放而生成按钮的数组
+    Model.UI.myAudios.AudioDom.durationDom=[];
+    //给进度按钮添上名字
+    for(let i =0;i<Model.UI.myAudios.audiosPartTitle.length;i++){
+        let tempDom = document.createElement('input');
+        tempDom.type = 'button';
+        tempDom.value += Model.UI.myAudios.audiosPartTitle[i];
+        Model.UI.myAudios.AudioDom.durationDom[i] = tempDom;
+        document.getElementById('isDurationButton').appendChild(tempDom);
+    }
+    //修改时间
+    for(let i = 0;i<Model.UI.myAudios.audiosPartTime.length;i++) {
+        for (let i = 0; i < Model.UI.myAudios.audiosPartTime.length; i++) {
+            Model.UI.myAudios.AudioDom.durationDom[i].addEventListener("click", function() {
+                Model.UI.myAudios.AudioDom.currentTime = Model.UI.myAudios.audiosPartTime[i][0];
+                Model.UI.myAudios.coverDom.src = Model.UI.myAudios.coverUrl[i];
+            });
+        }
+    }
+
+
+    //临时容器
+    Model.UI.temps={}
+    Model.UI.temps.tempMediaDom = Model.UI.myVideos.videoDom;
+    Model.UI.temps.tempMediaUrl =Model.UI.myVideos.videoUrl;
+
+
+    //视频/音频播放，暂停，重播，切换按钮
+    Model.UI.playButton = document.getElementById("play");
+    Model.UI.pauseButton = document.getElementById("stop");
+    Model.UI.restartButton = document.getElementById("restart");
+    Model.UI.fontButton = document.getElementById("front");
+    Model.UI.backButton = document.getElementById("back");
+    //视频/音频时间跳转，视频序号跳转按钮
+    Model.UI.jumpTimeInput = document.getElementById("jumpTimeInput");
+    Model.UI.jumpTimeButton = document.getElementById("jumpTimeButton");
+    Model.UI.jumpOrderInput = document.getElementById("jumpOrderInput");
+    Model.UI.jumpOrderButton = document.getElementById("jumpOrderButton");
+    //显示视频/音频当前时间，序号
+    Model.UI.timeDom = document.getElementById("showTime");
+    Model.UI.orderDom = document.getElementById("showOrder");
+    //全屏按钮
+    Model.UI.fullScreenButton = document.getElementById("fullScreen");
+    //视频/音频切换按钮
+    Model.UI.switchButton = document.getElementById("switch");
+
+
+    //视频/音频切换
+    Model.UI.switchButton.addEventListener("click", function() {
+        Model.UI.isVideos = !Model.UI.isVideos;
+        if (Model.UI.isVideos) {
+            //将视频进行显示，音频进行影藏，并暂停
+            Model.UI.myAudios.AudioDom.style.display = 'none';
+            Model.UI.myVideos.videoDom.style.display = 'block';
+            Model.UI.myAudios.AudioDom.pause();
+            Model.UI.temps.tempMediaDom = Model.UI.myVideos.videoDom;
+            Model.UI.temps.tempMediaUrl =Model.UI.myVideos.videoUrl;
+        } else {
+            //将音频进行显示，视频进行影藏，并暂停
+            Model.UI.myAudios.AudioDom.style.display = 'block';
+            Model.UI.myVideos.videoDom.style.display = 'none';
+            Model.UI.myVideos.videoDom.pause();
+            Model.UI.temps.tempMediaDom = Model.UI.myAudios.AudioDom;
+            Model.UI.temps.tempMediaUrl =Model.UI.myAudios.audiosUrl;
+        }
+    });
+    //视频/音频的播放，暂停，重播
+    Model.UI.playButton.addEventListener("click", function() {
+        Model.UI.temps.tempMediaDom.play();
+    });
+    Model.UI.pauseButton.addEventListener("click", function() {
+        Model.UI.temps.tempMediaDom.pause();
+    });
+    Model.UI.restartButton.addEventListener("click", function() {
+        Model.UI.temps.tempMediaDom.currentTime = 0;
+        Model.UI.temps.tempMediaDom.play();
+    });
+    //视频/音频的轮播，前后视频切换
+    Model.UI.fontButton.addEventListener("click", function() {
+        Model.i--;
+        if (Model.i < 0) {
+            Model.i = Model.UI.temps.tempMediaUrl.length - 1;
+        }
+        Model.UI.temps.tempMediaDom.src = Model.UI.temps.tempMediaUrl[Model.i];
+    });
+    Model.UI.backButton.addEventListener("click", function() {
+        Model.i++;
+        if (Model.i == Model.UI.temps.tempMediaUrl.length) {
+            Model.i = 0;
+        }
+        Model.UI.temps.tempMediaDom.src = Model.UI.temps.tempMediaUrl[Model.i];
+    });
+    //视频/音频的时间跳转，视频序号跳转
+    Model.UI.jumpTimeButton.addEventListener("click", function() {
+        var jumpToTime = parseFloat(Model.UI.jumpTimeInput.value);
+        if (!isNaN(jumpToTime)) {
+            if (jumpToTime >= 0 && jumpToTime <= Model.UI.temps.tempMediaDom.duration) {
+                Model.UI.temps.tempMediaDom.currentTime = jumpToTime;
+            } else if (jumpToTime > Model.UI.temps.tempMediaDom.duration) {
+                Model.UI.temps.tempMediaDom.currentTime = Model.UI.temps.tempMediaDom.duration;
+            } else {
+                Model.UI.temps.tempMediaDom.currentTime = 0;
+            }
+        }
+    });
+    Model.UI.jumpOrderButton.addEventListener("click", function() {
+        var jumpToActualIndex = parseInt(Model.UI.jumpOrderInput.value);
+        var jumpToIndex = jumpToActualIndex-1;
+        if (!isNaN(jumpToIndex) && jumpToIndex >= 0 && jumpToIndex < Model.UI.temps.tempMediaUrl.length) {
+            Model.i = jumpToIndex;
+            Model.UI.temps.tempMediaDom.src = Model.UI.temps.tempMediaUrl[Model.i];
+        }
+    });
+    //定时器：显示视频/音频当前时间，当前序号
+    window.setInterval(function () {
+        Model.UI.timeDom.textContent = parseInt(Model.UI.temps.tempMediaDom.currentTime) + 's / ' + parseInt(Model.UI.temps.tempMediaDom.duration) + 's';
+        Model.UI.orderDom.textContent = 'NO.' + (Model.i + 1) + '/' + (Model.UI.temps.tempMediaUrl.length);
+    }, 1000);
+    //视频/音频的全屏
+    Model.UI.fullScreenButton.addEventListener("click", function() {
+        if(Model.UI.isVideos){
+            if (Model.UI.myVideos.videoDom.requestFullscreen) {
+                Model.UI.myVideos.videoDom.requestFullscreen();
+            }
+        }else{
+            if (Model.UI.myAudios.coverDom.requestFullscreen) {
+                Model.UI.myAudios.coverDom.requestFullscreen();
+            } else if (Model.UI.myAudios.coverDom.mozRequestFullScreen) {
+                Model.UI.myAudios.coverDom.mozRequestFullScreen();
+            } else if (Model.UI.myAudios.coverDom.webkitRequestFullscreen) {
+                Model.UI.myAudios.coverDom.webkitRequestFullscreen();
+            } else if (Model.UI.myAudios.coverDom.msRequestFullscreen) {
+                Model.UI.myAudios.coverDom.msRequestFullscreen();
+            }
+        }
+    });
+</script>
+</body>
+</html>
