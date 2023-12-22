@@ -170,7 +170,6 @@
         border-radius: 50%;
     }
 
-
     hr {
         background-color:orange;
         height: 1.5px;
@@ -209,6 +208,27 @@
     #jumpOrderButton,#jumpTimeButton{
         width: 50px;
         height: 20px;
+    }
+
+    #switch{
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        outline: inherit;
+    }
+    #footer_right {
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+    }
+
+    #footer_right img,
+    #footer_right input {
+        margin: 0 5px; /* 添加一些水平间距 */
     }
 
 
@@ -308,7 +328,7 @@
         <!--播放，暂停，重播按钮-->
         <div id="footer_right">
             <img src="../images/leftButton.jpg" id="front" >
-            <img src="../images/Shfit.jpg" id="switch">
+            <input type="button" id="switch" value="音频/视频切换">
             <img src="../images/rightButton.jpg" id="back">
         </div>
     </div>
@@ -325,23 +345,23 @@
     var Model = {};
     Model.i = 0;
     Model.UI = {};
-    Model.UI.isVideos = true;
+    Model.isVideos = true;
     //作者成员的DOM对象
-    Model.UI.creatorDom = document.getElementById("creator");
-    Model.UI.creatorDom.textContent = mediaData.creator.join(", ");
+    Model.creatorDom = document.getElementById("creator");
+    Model.creatorDom.textContent = mediaData.creator.join(", ");
     //视频元素的DOM对象
-    Model.UI.myVideos = {};
-    Model.UI.myVideos.videoDom = document.getElementById("myVideo");
+    Model.myVideos = {};
+    Model.myVideos.videoDom = document.getElementById("myVideo");
     //视频路径数组
-    Model.UI.myVideos.videoUrl = mediaData.videoFileNames.map(function(fileName) {
+    Model.myVideos.videoUrl = mediaData.videoFileNames.map(function(fileName) {
         return mediaData.videoPath + fileName;
     });
-    Model.UI.myVideos.videoDom.src = Model.UI.myVideos.videoUrl[Model.i];
+    Model.myVideos.videoDom.src = Model.myVideos.videoUrl[Model.i];
     //音频元素的Dom对象
-    Model.UI.myAudios = {};
-    Model.UI.myAudios.AudioDom = document.getElementById("myAudio");
+    Model.myAudios = {};
+    Model.myAudios.AudioDom = document.getElementById("myAudio");
     //音频路径数组
-    Model.UI.myAudios.audiosUrl = mediaData.podFilesStruct.map(function(file) {
+    Model.myAudios.audiosUrl = mediaData.podFilesStruct.map(function(file) {
         if (typeof file === "object") {
             return file.fileName;
         } else {
@@ -350,36 +370,36 @@
     }).map(function(fileName) {
         return mediaData.podPath + fileName;
     });
-    Model.UI.myAudios.AudioDom.src = Model.UI.myAudios.audiosUrl[Model.i];
+    Model.myAudios.AudioDom.src = Model.myAudios.audiosUrl[Model.i];
     //获取按钮名数组
-    Model.UI.myAudios.audiosPartTitle = mediaData.podFilesStruct[Model.i].title;
+    Model.myAudios.audiosPartTitle = mediaData.podFilesStruct[Model.i].title;
     //获取音频进度的时间
-    Model.UI.myAudios.audiosPartTime = mediaData.podFilesStruct[Model.i].time;
+    Model.myAudios.audiosPartTime = mediaData.podFilesStruct[Model.i].time;
     //获取对应小结的封面的DOM对象
-    Model.UI.myAudios.coverDom = document.getElementById("cover");
+    Model.myAudios.coverDom = document.getElementById("cover");
     //获取对应小结的封面的路径
-    Model.UI.myAudios.coverUrl = mediaData.podFilesStruct[Model.i].cover.map(function (fileName) {
+    Model.myAudios.coverUrl = mediaData.podFilesStruct[Model.i].cover.map(function (fileName) {
         // 构建绝对路径
         return mediaData.podCover + fileName;
     });
 
 
     //用于存储为音频进度播放而生成按钮的数组
-    Model.UI.myAudios.AudioDom.durationDom=[];
+    Model.myAudios.AudioDom.durationDom=[];
     //给进度按钮添上名字
-    for(let i =0;i<Model.UI.myAudios.audiosPartTitle.length;i++){
+    for(let i =0;i<Model.myAudios.audiosPartTitle.length;i++){
         let tempDom = document.createElement('input');
         tempDom.type = 'button';
-        tempDom.value += Model.UI.myAudios.audiosPartTitle[i];
-        Model.UI.myAudios.AudioDom.durationDom[i] = tempDom;
+        tempDom.value += Model.myAudios.audiosPartTitle[i];
+        Model.myAudios.AudioDom.durationDom[i] = tempDom;
         document.getElementById('isDurationButton').appendChild(tempDom);
     }
     //修改时间
-    for(let i = 0;i<Model.UI.myAudios.audiosPartTime.length;i++) {
-        for (let i = 0; i < Model.UI.myAudios.audiosPartTime.length; i++) {
-            Model.UI.myAudios.AudioDom.durationDom[i].addEventListener("click", function() {
-                Model.UI.myAudios.AudioDom.currentTime = Model.UI.myAudios.audiosPartTime[i][0];
-                Model.UI.myAudios.coverDom.src = Model.UI.myAudios.coverUrl[i];
+    for(let i = 0;i<Model.myAudios.audiosPartTime.length;i++) {
+        for (let i = 0; i < Model.myAudios.audiosPartTime.length; i++) {
+            Model.myAudios.AudioDom.durationDom[i].addEventListener("click", function() {
+                Model.myAudios.AudioDom.currentTime = Model.myAudios.audiosPartTime[i][0];
+                Model.myAudios.coverDom.src = Model.myAudios.coverUrl[i];
             });
         }
     }
@@ -387,8 +407,8 @@
 
     //临时容器
     Model.UI.temps={}
-    Model.UI.temps.tempMediaDom = Model.UI.myVideos.videoDom;
-    Model.UI.temps.tempMediaUrl =Model.UI.myVideos.videoUrl;
+    Model.UI.temps.tempMediaDom = Model.myVideos.videoDom;
+    Model.UI.temps.tempMediaUrl =Model.myVideos.videoUrl;
 
 
     //视频/音频播放，暂停，重播，切换按钮
@@ -413,21 +433,21 @@
 
     //视频/音频切换
     Model.UI.switchButton.addEventListener("click", function() {
-        Model.UI.isVideos = !Model.UI.isVideos;
-        if (Model.UI.isVideos) {
+        Model.isVideos = !Model.isVideos;
+        if (Model.isVideos) {
             //将视频进行显示，音频进行影藏，并暂停
-            Model.UI.myAudios.AudioDom.style.display = 'none';
-            Model.UI.myVideos.videoDom.style.display = 'block';
-            Model.UI.myAudios.AudioDom.pause();
-            Model.UI.temps.tempMediaDom = Model.UI.myVideos.videoDom;
-            Model.UI.temps.tempMediaUrl =Model.UI.myVideos.videoUrl;
+            Model.myAudios.AudioDom.style.display = 'none';
+            Model.myVideos.videoDom.style.display = 'block';
+            Model.myAudios.AudioDom.pause();
+            Model.UI.temps.tempMediaDom = Model.myVideos.videoDom;
+            Model.UI.temps.tempMediaUrl =Model.myVideos.videoUrl;
         } else {
             //将音频进行显示，视频进行影藏，并暂停
-            Model.UI.myAudios.AudioDom.style.display = 'block';
-            Model.UI.myVideos.videoDom.style.display = 'none';
-            Model.UI.myVideos.videoDom.pause();
-            Model.UI.temps.tempMediaDom = Model.UI.myAudios.AudioDom;
-            Model.UI.temps.tempMediaUrl =Model.UI.myAudios.audiosUrl;
+            Model.myAudios.AudioDom.style.display = 'block';
+            Model.myVideos.videoDom.style.display = 'none';
+            Model.myVideos.videoDom.pause();
+            Model.UI.temps.tempMediaDom = Model.myAudios.AudioDom;
+            Model.UI.temps.tempMediaUrl =Model.myAudios.audiosUrl;
         }
     });
     //视频/音频的播放，暂停，重播
@@ -484,19 +504,19 @@
     }, 1000);
     //视频/音频的全屏
     Model.UI.fullScreenButton.addEventListener("click", function() {
-        if(Model.UI.isVideos){
-            if (Model.UI.myVideos.videoDom.requestFullscreen) {
-                Model.UI.myVideos.videoDom.requestFullscreen();
+        if(Model.isVideos){
+            if (Model.myVideos.videoDom.requestFullscreen) {
+                Model.myVideos.videoDom.requestFullscreen();
             }
         }else{
-            if (Model.UI.myAudios.coverDom.requestFullscreen) {
-                Model.UI.myAudios.coverDom.requestFullscreen();
-            } else if (Model.UI.myAudios.coverDom.mozRequestFullScreen) {
-                Model.UI.myAudios.coverDom.mozRequestFullScreen();
-            } else if (Model.UI.myAudios.coverDom.webkitRequestFullscreen) {
-                Model.UI.myAudios.coverDom.webkitRequestFullscreen();
-            } else if (Model.UI.myAudios.coverDom.msRequestFullscreen) {
-                Model.UI.myAudios.coverDom.msRequestFullscreen();
+            if (Model.myAudios.coverDom.requestFullscreen) {
+                Model.myAudios.coverDom.requestFullscreen();
+            } else if (Model.myAudios.coverDom.mozRequestFullScreen) {
+                Model.myAudios.coverDom.mozRequestFullScreen();
+            } else if (Model.myAudios.coverDom.webkitRequestFullscreen) {
+                Model.myAudios.coverDom.webkitRequestFullscreen();
+            } else if (Model.myAudios.coverDom.msRequestFullscreen) {
+                Model.myAudios.coverDom.msRequestFullscreen();
             }
         }
     });
