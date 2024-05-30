@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>UI的个性化键盘控制——单个字符输入，换行与删除</title>
+    <title>最终版本项目</title>
     <link rel="stylesheet" href="myCss.css">
 </head>
 <style>
@@ -200,10 +200,13 @@
     });
 
 
-    /*实现翻页功能*/
+    /*鼠标滚轮实现翻页功能*/
+    //currentIndex跟踪当前海报的索引，初始值为0，即显示第一张海报
     var currentIndex = 0;
+    //posterContainer获取海报容器元素
     var posterContainer = $("poster-container");
 
+    //更加传入索引值，在海报容器中显示对应的海报图片，并更新标题和介绍。
     function showPoster(index) {
         var currentPoster = poster[index];
         var posterHTML = `
@@ -215,10 +218,10 @@
         $("title").textContent = currentPoster.name;
         $("introduce").textContent = currentPoster.description;
     }
-
     // 初始化显示第一张海报
     showPoster(currentIndex);
-    // 监听鼠标滑动事件
+    // 监听鼠标滑动事件，当滚轮滚动时，触发回调函数。
+    // 在回调函数中，根据鼠标滚轮的方向更新currentIndex的值，从而切换显示的海拔
     document.addEventListener('wheel', function (event) {
         // 鼠标向上滑动，显示前一张海报
         if (event.deltaY < 0) {
@@ -231,6 +234,34 @@
         showPoster(currentIndex);
     });
 
+
+    //添加触摸事件监听器模拟鼠标滑动翻页效果
+    var touchstartX = 0;
+    var touchendX = 0;
+
+    //监听页面上的触摸开始事件，当用户开始触摸屏幕时，触发事件
+    document.addEventListener('touchstart', function(event) {
+        //获取触摸事件的第一个触摸点的水平坐标(X坐标)，触摸带你相对于屏幕左边缘的位置
+        //将触摸起始位置的X坐标存储在touchstarX变量中，以便于后续细算触摸移动距离
+        touchstartX = event.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        if (touchendX < touchstartX) {
+            // 向左滑动，显示后一张海报
+            currentIndex = (currentIndex === poster.length - 1) ? 0 : currentIndex + 1;
+        }
+        if (touchendX > touchstartX) {
+            // 向右滑动，显示前一张海报
+            currentIndex = (currentIndex === 0) ? poster.length - 1 : currentIndex - 1;
+        }
+        showPoster(currentIndex);
+    }
     function $(ele) {
         if (typeof ele !== 'string') {
             throw("自定义的$函数参数的数据类型错误，实参必须是字符串！");
