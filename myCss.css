@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    color: black;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+    font-family: Franklin Gothic Heavy, Karla, sans-serif;
+}
+
+header {
+    height: 15%;
+    display: flex;
+    border: 5px solid black;
+    border-bottom: none;
+}
+
+
+main {
+    height: 70%;
+    font-size: 0.8em;
+    border: 5px solid black;
+    display: flex;
+}
+
+poster-container {
+    position: relative;
+    font-size: 2em;
+}
+
+footer {
+    height: 15%;
+    font-size: 1em;
+    border: 5px solid black;
+    border-top: none;
+}
+
+#aid {
+    top: 0px;
+    left: 650px;
+    position: absolute;
+    align-content: normal;
+    border: 5px solid black;
+    right: 0;
+}
+
+#respond {
+    margin: 2%;
+}
+
+#keyboard, #status {
+
+    border: 5px solid black;
+    margin-left: 5%;
+    width: 90%;
+}
+
+#status {
+    position: absolute;
+    bottom: 0;
+}
+
+p, #status {
+    font-size: 2em;
+    background: none;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#introduce {
+    font-size: 1.5em;
+}
+
+/*#title {
+    font-size: 3em;
+    color: white;
+    text-shadow:
+            1px 1px 0 #CCC,
+            2px 2px 0 #CCC,
+            3px 3px 0 #444,
+            4px 4px 0 #444,
+            5px 5px 0 #444,
+            6px 6px 0 #444;
+}
+*/
+/* 鼠标滑过放大效果 */
+#title:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+/* 淡入淡出效果 */
+#title {
+    color: black;
+    font-size: 4.5em;
+    -webkit-transition: all 0.12s ease-out;
+    -moz-transition: all 0.12s ease-out;
+    -o-transition: all 0.12s ease-out;
+}
