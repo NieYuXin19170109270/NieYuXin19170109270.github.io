@@ -137,7 +137,7 @@
 <script !src="">
     //用于存储数据信息
     var poster = [{
-        "name": "Introduction", "imageURL": "../imgs/phone.jpg", "description": "2024 Alian. All rights reserved."
+        "name": "Introduction", "imageURL": "../imgs/0.jpg", "description": "2024 Alian. All rights reserved."
     }, {
         "name": "Posters", "imageURL": "../imgs/1.jpg", "description": "Design makes everything possible. "
     }, {
@@ -219,6 +219,7 @@
     });
 
 
+
     /*鼠标滚轮实现翻页功能*/
     //currentIndex跟踪当前海报的索引，初始值为0，即显示第一张海报
     var currentIndex = 0;
@@ -228,9 +229,18 @@
     //更加传入索引值，在海报容器中显示对应的海报图片，并更新标题和介绍。
     function showPoster(index) {
         var currentPoster = poster[index];
+        var posterSrc = currentPoster.imageURL;
+        if(UI.deviceWidth<600){
+            $("aid").style.display="none";
+            if(index==0){
+                posterSrc="../imgs/phone.jpg"
+            }
+        }else {
+            $("aid").style.display="block";
+        }
         var posterHTML = `
             <div class="poster" style="width: 100%;height: 100%">
-                <img src="${currentPoster.imageURL}" alt="${currentPoster.name}" style="max-width: 100%;position: absolute;left: 0;top: 0;transition: all 0.5s ease-out">
+                <img src="${posterSrc}" alt="${currentPoster.name}" style="max-width: 100%;position: absolute;left: 0;top: 0;transition: all 0.5s ease-out">
             </div>
         `;
         posterContainer.innerHTML = posterHTML;
