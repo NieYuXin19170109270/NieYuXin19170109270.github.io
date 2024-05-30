@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>通用的UI设计，用一套代码同时为触屏和鼠标建模</title>
+
+    <style>
+        * {
+            margin: 0;
+            color: grey;
+            text-align: center;
+            align-content: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background-color: ghostwhite;
+            font-family: Karla, sans-serif;
+        }
+
+        header {
+            height: 15%;
+            display: flex;
+            border: 5px solid black;
+            border-bottom: none;
+        }
+
+        #title {
+            font-size: 2em;
+        }
+
+        main {
+            height: 75%;
+            font-size: 0.8em;
+            border: 5px solid black;
+            display: flex;
+        }
+        .poster {
+            position: relative;
+            width: 75%;
+            font-size: 2em;
+            background-color: bisque;
+        }
+        footer {
+            height: 10%;
+            font-size: 1em;
+            border: 5px solid black;
+            border-top: none;
+        }
+        #aid {
+            top: 0px;
+            left: 650px;
+            position: absolute;
+            align-content: normal;
+            border: 5px solid black;
+        }
+        #respond{
+            margin:2%;
+        }
+        #keyboard,#status {
+
+            border: 5px solid black;
+            margin-left: 10%;
+            width:80% ;
+        }
+        #status{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <p id="title">
+        Design Works Display
+    </p>
+</header>
+<main id="main">
+    <div class="poster">
+        Poster Content
+    </div>
+</main>
+<footer>
+    &copy; 2024 Alian. All rights reserved.
+</footer>
+<div id="aid">
+    <p id="respond">用户键盘响应区域</p>
+    <div id="keyboard">
+        <p id="firstLine">
+            &nbsp;
+        </p>
+    </div>
+    <p id="status">
+
+    </p>
+</div>
+<script>
+    // 创建一个名为UI的对象，用于存储系统的宽度和高度信息
+    var UI = {};
+    // 记录系统窗口的宽度和高度，并限制宽度不超过 600px
+    UI.deviceWidth = window.innerWidth > 600 ? 600 : window.innerWidth;
+    UI.deviceHeight = window.innerHeight;
+    // 计算默认字体大小
+    const Letters = 33; // 字母数量
+    const baseFont = UI.deviceWidth / Letters; // 基准字体大小
+    // 设置页面的字体大小为默认字体大小
+    document.body.style.fontSize = baseFont + 'px';
+    // 通过动态CSS设置页面全屏显示
+    document.body.style.width = UI.deviceWidth + 'px';
+    document.body.style.height = UI.deviceHeight + 'px';
+
+    if (window.innerWidth < 1000) {
+        $("#aid").style.display = 'none';
+    }
+    $("#aid").style.width = window.innerWidth - UI.deviceWidth - baseFont * 3 + 'px';
+    $("#aid").style.height = UI.deviceHeight + 'px';
+
+    //尝试对鼠标设计UI控制
+    var mouse={};
+    mouse.isDown= false;
+    mouse.x= 0;
+    mouse.y= 0;
+    mouse.deltaX=0;
+    $(".poster").addEventListener("mousedown",function(ev){
+        mouse.isDown=true;
+        mouse.x= ev.pageX;
+        mouse.y= ev.pageY;
+        console.log("mouseDown at x: "+"("+mouse.x +"," +mouse.y +")" ) ;
+        $(".poster").textContent= "鼠标按下，坐标："+"("+mouse.x+","+mouse.y+")";
+    });
+    $(".poster").addEventListener("mouseup",function(ev){
+        mouse.isDown=false;
+
+        $(".poster").textContent= "鼠标松开!";
+        if(Math.abs(mouse.deltaX) > 100){
+            $(".poster").textContent += "，这是有效拖动！"  ;
+        }else{
+            $(".poster").textContent += " 本次算无效拖动！"  ;
+        }
+
+    });
+    $(".poster").addEventListener("mouseout",function(ev){
+        ev.preventDefault();
+        mouse.isDown=false;
+
+        $(".poster").textContent= "鼠标松开!";
+        if(Math.abs(mouse.deltaX) > 100){
+            $(".poster").textContent += " 这次是有效拖动！"  ;
+        }else{
+            $(".poster").textContent += " 本次算无效拖动！"  ;
+        }
+
+    });
+    $(".poster").addEventListener("mousemove",function(ev){
+        ev.preventDefault();
+        if (mouse.isDown){
+            console.log("mouse isDown and moving");
+            mouse.deltaX = parseInt( ev.pageX - mouse.x );
+            $(".poster").textContent= "正在拖动鼠标，距离：" + mouse.deltaX +"px 。";
+            $(".poster").style.left = mouse.deltaX + 'px' ;
+        }
+    });
+
+
+    function $(ele) {
+        if (typeof ele !== 'string') {
+            throw("自定义的$函数参数的数据类型错误，实参必须是字符串！");
+            return
+        }
+        let dom = document.getElementById(ele);
+        if (dom) {
+            return dom;
+        } else {
+            dom = document.querySelector(ele);
+            if (dom) {
+                return dom;
+            } else {
+                throw("执行$函数未能在页面上获取任何元素，请自查问题！");
+                return;
+            }
+        }
+    } //end of $
+</script>
+</body>
+</html>
