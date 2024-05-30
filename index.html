@@ -4,33 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>最终版本项目</title>
-    <link rel="stylesheet" href="myCss.css">
 </head>
 <style>
     * {
         margin: 0;
-        color: black;
-        text-align: center;
-        align-content: center;
-        justify-content: center;
+        padding: 0;
         box-sizing: border-box;
         background-color: ghostwhite;
         font-family: Franklin Gothic Heavy, Karla, sans-serif;
     }
-
+    body{
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+    }
     header {
-        height: 15%;
-        display: flex;
+        font-size: 1.05em;
+        height: 13%;
         border: 5px solid black;
         border-bottom: none;
     }
-
-
     main {
-        height: 70%;
-        font-size: 0.8em;
+        height: 77%;
+        overflow: hidden;
+        position: relative;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
         border: 5px solid black;
-        display: flex;
     }
 
     poster-container {
@@ -39,11 +39,27 @@
     }
 
     footer {
-        height: 15%;
-        font-size: 1em;
+        height: 10%;
+        font-size: 1.1em;
         border: 5px solid black;
         border-top: none;
+        display: grid;
+        place-items: center;
     }
+
+    #aid {
+        top: 0px;
+        left: 650px;
+        position: absolute;
+        align-content: normal;
+        border: 5px solid black;
+        right: 0;
+    }
+
+    #respond {
+        margin: 2%;
+    }
+
     #keyboard, #status {
 
         border: 5px solid black;
@@ -86,6 +102,7 @@
         -moz-transition: all 0.12s ease-out;
         -o-transition: all 0.12s ease-out;
     }
+
 </style>
 <body>
 <header>
@@ -211,7 +228,7 @@
         var currentPoster = poster[index];
         var posterHTML = `
             <div class="poster" style="width: 100%;height: 100%">
-                <img src="${currentPoster.imageURL}" alt="${currentPoster.name}">
+                <img src="${currentPoster.imageURL}" alt="${currentPoster.name}" style="max-width: 100%;position: absolute;left: 0;top: 0;transition: all 0.5s ease-out">
             </div>
         `;
         posterContainer.innerHTML = posterHTML;
