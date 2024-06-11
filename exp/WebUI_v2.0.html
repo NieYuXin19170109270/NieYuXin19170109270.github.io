@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1 , user-scalable=no">
+
+    <title>个性化UI设计中鼠标模型</title>
+
+    <style>
+        * {
+            margin: 0;
+            color: black;
+            text-align: center;
+            align-content: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background-color: ghostwhite;
+            font-family: Franklin Gothic Heavy, Karla, sans-serif;
+        }
+
+        header {
+            height: 15%;
+            display: flex;
+            border: 5px solid black;
+            border-bottom: none;
+        }
+
+        #title {
+            font-size: 2em;
+        }
+
+        main {
+            height: 75%;
+            font-size: 0.8em;
+            border: 5px solid black;
+            display: flex;
+        }
+
+        .poster {
+            width: 75%;
+            font-size: 2em;
+            background-color: bisque;
+        }
+
+        footer {
+            height: 10%;
+            font-size: 1em;
+            border: 5px solid black;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <p id="title">
+        Design Works Display
+    </p>
+</header>
+
+<main id="main">
+    <div class="poster">
+        Poster Content
+    </div>
+
+</main>
+
+<footer>
+    &copy; 2024 Alian. All rights reserved.
+</footer>
+
+<script>
+    // 创建一个名为UI的对象，用于存储系统的宽度和高度信息
+    var UI = {};
+    // 记录系统窗口的宽度和高度，并限制宽度不超过 600px
+    UI.deviceWidth = window.innerWidth > 600 ? 600 : window.innerWidth;
+    UI.deviceHeight = window.innerHeight;
+    // 计算默认字体大小
+    const Letters = 33; // 字母数量
+    const baseFont = UI.deviceWidth / Letters; // 基准字体大小
+    // 设置页面的字体大小为默认字体大小
+    document.body.style.fontSize = baseFont + 'px';
+    // 通过动态CSS设置页面全屏显示
+    document.body.style.width = UI.deviceWidth + 'px';
+    document.body.style.height = UI.deviceHeight + 'px';
+
+
+    // 个性化UI设计中鼠标模型
+    var mouse = {};
+    // 标记鼠标是否按下
+    mouse.isDown = false;
+    // 记录鼠标位置
+    mouse.x = 0;
+    // 记录鼠标水平移动距离
+    mouse.deltaX = 0;
+
+    // 监听鼠标在 .poster 区域的按下事件
+    $(".poster").addEventListener("mousedown", function (ev) {
+        // 获取鼠标按下时的坐标，并在 .poster 区域显示鼠标按下的信息及坐标
+        let x = ev.pageX;
+        let y = ev.pageY;
+        $(".poster").textContent = "鼠标按下了，坐标为：" + "(" + x + "," + y + ")";
+    });
+    // 监听鼠标在 .poster 区域的移动事件
+    $(".poster").addEventListener("mousemove", function (ev) {
+        // 获取鼠标当前坐标，并在 .poster 区域显示鼠标移动的信息及坐标
+        let x = ev.pageX;
+        let y = ev.pageY;
+        $(".poster").textContent = "鼠标正在移动，坐标为：" + "(" + x + "," + y + ")";
+    });
+
+
+    function $(ele) {
+        if (typeof ele !== 'string') {
+            throw("自定义的$函数参数的数据类型错误，实参必须是字符串！");
+            return
+        }
+        let dom = document.getElementById(ele);
+        if (dom) {
+            return dom;
+        } else {
+            dom = document.querySelector(ele);
+            if (dom) {
+                return dom;
+            } else {
+                throw("执行$函数未能在页面上获取任何元素，请自查问题！");
+                return;
+            }
+        }
+    }
+</script>
+</body>
+</html>
