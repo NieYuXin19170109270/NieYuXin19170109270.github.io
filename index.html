@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>UI的个性化键盘控制——单个字符输入，换行与删除</title>
-    <link rel="stylesheet" href="myCss.css">
+    <title>最终版本项目</title>
 </head>
 <style>
     * {
         margin: 0;
-        color: black;
-        text-align: center;
-        align-content: center;
-        justify-content: center;
+        padding: 0;
         box-sizing: border-box;
         background-color: ghostwhite;
         font-family: Franklin Gothic Heavy, Karla, sans-serif;
     }
-
+    body{
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+    }
     header {
-        height: 15%;
-        display: flex;
+        font-size: 1.05em;
+        height: 13%;
         border: 5px solid black;
         border-bottom: none;
+        display: grid;
+        place-items: center;
     }
-
-
     main {
-        height: 70%;
-        font-size: 0.8em;
+        height: 77%;
+        overflow: hidden;
+        position: relative;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
         border: 5px solid black;
-        display: flex;
     }
 
     poster-container {
@@ -39,16 +41,35 @@
     }
 
     footer {
-        height: 15%;
-        font-size: 1em;
+        height: 10%;
+        font-size: 1.1em;
         border: 5px solid black;
         border-top: none;
+        display: grid;
+        place-items: center;
     }
-    #keyboard, #status {
 
+    #aid {
+        top: 0px;
+        left: 650px;
+        position: absolute;
+        align-content: normal;
+        border: 5px solid black;
+        right: 0;
+    }
+
+    #respond {
+        margin: 2%;
+    }
+
+    #keyboard, #status {
         border: 5px solid black;
         margin-left: 5%;
         width: 90%;
+    }
+
+    #keyboard{
+        height: 79%;
     }
 
     #status {
@@ -64,7 +85,7 @@
     img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+
     }
 
     #introduce {
@@ -86,6 +107,7 @@
         -moz-transition: all 0.12s ease-out;
         -o-transition: all 0.12s ease-out;
     }
+
 </style>
 <body>
 <header>
@@ -199,26 +221,29 @@
         }
     });
 
-
-    /*实现翻页功能*/
+    /*鼠标滚轮实现翻页功能*/
+    //currentIndex跟踪当前海报的索引，初始值为0，即显示第一张海报
     var currentIndex = 0;
+    //posterContainer获取海报容器元素
     var posterContainer = $("poster-container");
 
+    //更加传入索引值，在海报容器中显示对应的海报图片，并更新标题和介绍。
     function showPoster(index) {
         var currentPoster = poster[index];
+        var posterSrc = currentPoster.imageURL;
         var posterHTML = `
             <div class="poster" style="width: 100%;height: 100%">
-                <img src="${currentPoster.imageURL}" alt="${currentPoster.name}">
+                <img src="${posterSrc}" alt="${currentPoster.name}" style="max-width: 100%;position: absolute;left: 0;top: 0;transition: all 0.5s ease-out">
             </div>
         `;
         posterContainer.innerHTML = posterHTML;
         $("title").textContent = currentPoster.name;
         $("introduce").textContent = currentPoster.description;
     }
-
     // 初始化显示第一张海报
     showPoster(currentIndex);
-    // 监听鼠标滑动事件
+    // 监听鼠标滑动事件，当滚轮滚动时，触发回调函数。
+    // 在回调函数中，根据鼠标滚轮的方向更新currentIndex的值，从而切换显示的海拔
     document.addEventListener('wheel', function (event) {
         // 鼠标向上滑动，显示前一张海报
         if (event.deltaY < 0) {
@@ -231,6 +256,34 @@
         showPoster(currentIndex);
     });
 
+
+    //添加触摸事件监听器模拟鼠标滑动翻页效果
+    var touchstartX = 0;
+    var touchendX = 0;
+
+    //监听页面上的触摸开始事件，当用户开始触摸屏幕时，触发事件
+    document.addEventListener('touchstart', function(event) {
+        //获取触摸事件的第一个触摸点的水平坐标(X坐标)，触摸带你相对于屏幕左边缘的位置
+        //将触摸起始位置的X坐标存储在touchstarX变量中，以便于后续细算触摸移动距离
+        touchstartX = event.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        if (touchendX < touchstartX) {
+            // 向左滑动，显示后一张海报
+            currentIndex = (currentIndex === poster.length - 1) ? 0 : currentIndex + 1;
+        }
+        if (touchendX > touchstartX) {
+            // 向右滑动，显示前一张海报
+            currentIndex = (currentIndex === 0) ? poster.length - 1 : currentIndex - 1;
+        }
+        showPoster(currentIndex);
+    }
     function $(ele) {
         if (typeof ele !== 'string') {
             throw("自定义的$函数参数的数据类型错误，实参必须是字符串！");
